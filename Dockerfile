@@ -18,3 +18,10 @@ RUN sh -c 'echo "deb https://hub.unity3d.com/linux/repos/deb stable main" > /etc
  # Alias to "unity-hub" with default params
 RUN echo '#!/bin/bash\nxvfb-run -ae /dev/stdout /opt/unityhub/unityhub-bin --no-sandbox --headless "$@"' > /usr/bin/unity-hub \
  && chmod +x /usr/bin/unity-hub
+
+# .net 6.0
+RUN wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
+ && dpkg -i packages-microsoft-prod.deb && apt-get update && apt-get install -y dotnet-runtime-6.0
+
+# unihacker
+COPY unihacker /root
